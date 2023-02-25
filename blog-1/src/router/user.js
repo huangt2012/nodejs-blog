@@ -1,4 +1,5 @@
 const { login } = require("../controller/user");
+const { set } = require("../db/redis");
 const { ErrorModel, SuccessModel } = require("../model/resModel");
 
 const getCookieExpires = () => {
@@ -22,6 +23,9 @@ const handlerUserRouter = (req, res) => {
         // 设置 session
         req.session.username = data.username;
         req.session.realname = data.realname;
+
+        // 同步到 redis
+        set(req.sessionId, req.session);
 
         return new SuccessModel();
       } else {

@@ -14,6 +14,15 @@ const MYSQL_CONFIG = env === 'production' ? {
   database: 'blog'
 };
 
+const REDIS_CONFIG = env === 'production' ? {
+  host: '127.0.0.1',
+  port: 6379,
+} : {
+  host: '127.0.0.1',
+  port: 6379,
+};
+
 module.exports = {
-  MYSQL_CONFIG
+  MYSQL_CONFIG,
+  REDIS_CONFIG
 }
