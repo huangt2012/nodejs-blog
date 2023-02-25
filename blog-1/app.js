@@ -38,7 +38,11 @@ const getPostData = (req) => {
 const serverHandler = (req, res) => {
   // 设置返回的数据格式
   res.setHeader('Content-type', 'application/json');
-
+  res.setHeader('Access-Control-Allow-Credentials', true); // 允许跨域传递 cookie
+  // res.setHeader('Access-Control-Allow-Origin', '*') // 允许跨域的 origin ，* 代表所有的，谨慎使用
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8001') // 允许单个 origin ，可通过前端 JS location.origin 获取
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE') // 允许的 method
+  
   // 获取 path
   const url = req.url;
   req.path = url.split('?')[0];
