@@ -49,19 +49,24 @@ const serverHandler = (req, res) => {
   getPostData(req).then((postData) => {
     req.body = postData;
     // blog 路由
-    const blogData = handlerBlogRouter(req, res)
-    if (blogData) {
-      res.end(
-        JSON.stringify(blogData)
-      )
+    const blogResult = handlerBlogRouter(req, res);
+    if (blogResult) {
+      blogResult?.then((blogData) => {
+        res.end(
+          JSON.stringify(blogData)
+        )
+      })
       return;
     }
+   
 
-    const userData = handlerUserRouter(req, res);
-    if (userData) {
-      res.end(
-        JSON.stringify(userData)
-      )
+    const userResult = handlerUserRouter(req, res);
+    if (userResult) {
+      userResult.then((userData) => {
+        res.end(
+          JSON.stringify(userData)
+        )
+      })
       return;
     }
 

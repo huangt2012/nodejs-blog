@@ -6,4 +6,6 @@ const serverHandler = require('../app');
 
 const server = http.createServer(serverHandler);
 
-server.listen(PORT);
+server.listen(PORT, () => {
+  console.log('listining on port 8000')
+});
