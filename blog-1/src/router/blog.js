@@ -14,7 +14,21 @@ const handlerBlogRouter = (req, res) => {
   const { id } = req.query;
 
   if (method === 'GET' && req.path === '/api/blog/list') {
-    const { author = '', keyword = '' } = req.query;
+    let { author = '' } = req.query;
+    const { keyword = '', isadmin } = req.query;
+
+    // 如果是管理员界面,进行权限校验并强制请求自己的博客列表
+    if (isadmin) {
+      const loginCheckResult = loginCheck(req);
+
+      if (loginCheckResult) {
+        return loginCheckResult;
+      }
+
+      author = req.session.username;
+      
+    }
+
     const result = getList(author, keyword);
 
     return result.then((listData) => {

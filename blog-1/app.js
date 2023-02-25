@@ -87,8 +87,6 @@ const serverHandler = (req, res) => {
         req.session = redisData;
       }
 
-      console.log(req.session);
-
       // 处理 post data
       return getPostData(req);
     })

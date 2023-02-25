@@ -4,7 +4,7 @@ const getList = (author, keyword) => {
   let sql = 'select * from blogs where 1=1 ';
 
   if (author) {
-    sql += `and author=${author} `;
+    sql += `and author='${author}' `;
   }
 
   if (keyword) {
@@ -52,7 +52,7 @@ const updateBlog = (id, blogData = {}) => {
 }
 
 const delBlog = (id, author) => {
-  const sql = `delete from blogs where id=${id} and author=${author}`;
+  const sql = `delete from blogs where id=${id} and author='${author}'`;
   return exec(sql).then((updateData) => {
     if (updateData.affectedRows > 0) {
       return true;
