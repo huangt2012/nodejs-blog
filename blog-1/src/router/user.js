@@ -12,8 +12,8 @@ const getCookieExpires = () => {
 const handlerUserRouter = (req, res) => {
   const method = req.method;
 
-  if (method === 'GET' && req.path === '/api/user/login') {
-    const { username, password } = req.query;
+  if (method === 'POST' && req.path === '/api/user/login') {
+    const { username, password } = req.body;
 
     const result = login(username, password);
 
@@ -34,19 +34,19 @@ const handlerUserRouter = (req, res) => {
     })
   }
 
-  if (method === 'GET' && req.path === '/api/user/login-test') {
-    if (req.session.username) {
-      return Promise.resolve(
-        new SuccessModel({
-          username: req.session.username
-        })
-      )
-    }
+  // if (method === 'GET' && req.path === '/api/user/login-test') {
+  //   if (req.session.username) {
+  //     return Promise.resolve(
+  //       new SuccessModel({
+  //         username: req.session.username
+  //       })
+  //     )
+  //   }
 
-    return Promise.resolve(
-      new ErrorModel('用户未登录')
-    )
-  }
+  //   return Promise.resolve(
+  //     new ErrorModel('用户未登录')
+  //   )
+  // }
 }
 
 module.exports = {
