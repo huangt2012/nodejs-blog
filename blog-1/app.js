@@ -3,6 +3,7 @@ const querystring = require('querystring');
 const { set, get } = require('./src/db/redis');
 const handlerBlogRouter = require('./src/router/blog');
 const { handlerUserRouter, getCookieExpires } = require('./src/router/user');
+const { access } = require('./src/utils/log');
 
 const getPostData = (req) => {
   return new Promise((resolve, reject) => {
@@ -36,6 +37,9 @@ const getPostData = (req) => {
 
 
 const serverHandler = (req, res) => {
+  // 写入访问日志
+  access(`${req.method}--${req.url}--${req.headers['user-agent']}--${Date.now()}`)
+
   // 设置返回的数据格式
   res.setHeader('Content-type', 'application/json');
   res.setHeader('Access-Control-Allow-Credentials', true); // 允许跨域传递 cookie
