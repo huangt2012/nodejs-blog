@@ -1,4 +1,4 @@
-const { getList, getDetail, newBlog, updateBlog } = require("../controller/blog");
+const { getList, getDetail, newBlog, updateBlog, delBlog } = require("../controller/blog");
 const { SuccessModel, ErrorModel } = require("../model/resModel");
 
 const loginCheck = (req) => {
@@ -84,9 +84,8 @@ const handlerBlogRouter = (req, res) => {
     if (loginCheckResult) {
       return loginCheckResult;
     }
-
     req.body.author = req.session.username;
-    const result = updateBlog(id, author);
+    const result = delBlog(id, req.body.author);
 
     return result.then((res) => {
       if (res) {
