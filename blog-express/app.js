@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const fs = require('fs');
 const session = require("express-session");
 let RedisStore = require("connect-redis")(session);
 
@@ -19,7 +20,21 @@ var app = express();
 // app.set('view engine', 'jade');
 
 // ====== 记录日志
-app.use(logger('dev'));
+const ENV = process.env.NODE_ENV;
+if (ENV === 'production') {
+  // 线上环境
+  const logFileName = path.join(__dirname, 'logs', 'access.log');
+  const writeStream = fs.createWriteStream(logFileName, {
+    flags: 'a'
+  });
+
+  app.use(logger('combined', {
+    stream: writeStream
+  }))
+} else {
+  // 测试环境
+  app.use(logger('dev'));
+}
 
 // ====== 处理 post data: 可以通过 req.body 获取
 app.use(express.json()); // 处理 json 类型的数据
