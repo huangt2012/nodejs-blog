@@ -13,6 +13,7 @@ const index = require('./routes/index')
 const users = require('./routes/users')
 const blog = require('./routes/blog');
 const user = require('./routes/user')
+const { REDIS_CONFIG } = require('../blog-express/config/db')
 
 // error handler
 onerror(app)
@@ -39,6 +40,7 @@ app.use(async (ctx, next) => {
 
 // 解析 session
 const keys = ['AJDJJjj_8878'] // 密匙
+app.keys = keys;
 app.use(session({
   cookie: {
     path: '/',
@@ -46,7 +48,7 @@ app.use(session({
     maxAge: 24 * 60 * 60 * 1000
   },
   store: redisStore({
-    all: '127.0.0.1:6379'
+    all: `${REDIS_CONFIG.host}:${REDIS_CONFIG.host}`
   })
 }))
 
