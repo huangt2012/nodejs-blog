@@ -71,7 +71,7 @@ router.post('/update', loginCheck, (req, res, next) => {
 
 router.post('/del', loginCheck, (req, res, next) => {
   req.body.author = req.session.username;
-  const result = delBlog(id, req.body.author);
+  const result = delBlog(req.body.id, req.body.author);
 
   return result.then((val) => {
     if (val) {
