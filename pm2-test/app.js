@@ -1,6 +1,9 @@
 const http = require('http');
 
 const server = http.createServer((req, res) => {
+  console.log('访问了');
+  console.error('假装出错了');
+  
   // 设置返回数据格式为 JSON
   res.setHeader('Content-type', 'application/json');
 
