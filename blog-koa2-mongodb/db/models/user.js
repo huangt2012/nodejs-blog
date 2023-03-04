@@ -11,7 +11,7 @@ const UserSchema = new Schema({
   },
   password: String,
   realname: String
-})
+}, { timestamps: true });
 
 // Model 对应 collection
 const User = mongoose.model('user', UserSchema);
