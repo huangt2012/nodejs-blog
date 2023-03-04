@@ -4,6 +4,10 @@ const server = http.createServer((req, res) => {
   // 设置返回数据格式为 JSON
   res.setHeader('Content-type', 'application/json');
 
+  if (req.url === '/err') {
+    throw new Error('/err 出错了')
+  }
+
   res.end(
     JSON.stringify({
       errno: 0,
